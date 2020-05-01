@@ -11,6 +11,9 @@
     $totalProdutos = Produto::total();
     $totalVendas = Venda::total();
 
+    $vendedores = Vendedor::list(["id","nome","sobrenome"]);
+    $produtos = Produto::list(["id","nome"]);
+
 ?>
 <html>
     <head>
@@ -93,7 +96,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <h1>Faturamento total</h1>
+                    <h1>Faturamento total por mês</h1>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Ano </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>2020</option>
+                                    <option>2019</option>
+                                    <option>2018</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Comparar com: </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>Não comparar</option>
+                                    <option>2019</option>
+                                    <option>2018</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <canvas id="faturamento" width="80%" height="30"></canvas>
                 </div>
             </div>
@@ -102,6 +131,32 @@
             <div class="row">
                 <div class="col-sm">
                     <h1>Vendas por produto</h1>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Produto </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>Caixa</option>
+                                    <option>Bola</option>
+                                    <option>Mamão</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Comparar com: </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>Não comparar</option>
+                                    <option>Caixa</option>
+                                    <option>Bola</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <canvas id="vendasPorProduto" width="80%" height="30"></canvas>
                 </div>
             </div>
@@ -110,6 +165,32 @@
             <div class="row">
                 <div class="col-sm">
                     <h1>Faturamento por produto</h1>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Produto </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>Caixa</option>
+                                    <option>Bola</option>
+                                    <option>Mamão</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Comparar com: </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>Não comparar</option>
+                                    <option>Caixa</option>
+                                    <option>Bola</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <canvas id="faturamentoPorProduto" width="80%" height="30"></canvas>
                 </div>
             </div>
@@ -118,6 +199,32 @@
             <div class="row">
                 <div class="col-sm">
                     <h1>Vendas por vendedor</h1>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Vendedor </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>Du</option>
+                                    <option>Dudu</option>
+                                    <option>Edu</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Comparar com: </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>Não comparar</option>
+                                    <option>Dudu</option>
+                                    <option>Edu</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <canvas id="vendasPorVendedor" width="80%" height="30"></canvas>
                 </div>
             </div>
@@ -126,6 +233,32 @@
             <div class="row">
                 <div class="col-sm">
                     <h1>Faturamento por vendedor</h1>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Vendedor </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>Du</option>
+                                    <option>Dudu</option>
+                                    <option>Edu</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Comparar com: </span>
+                                </div>
+                                <select class="form-control">
+                                    <option>Não comparar</option>
+                                    <option>Dudu</option>
+                                    <option>Edu</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <canvas id="faturamentoPorVendedor" width="80%" height="30"></canvas>
                 </div>
             </div>
