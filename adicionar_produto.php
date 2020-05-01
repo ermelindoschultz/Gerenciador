@@ -32,15 +32,16 @@
             </div>
         </div>
         <div class="container">
-        <form>
+        <form action="produtos.php" method="post">
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome">
+                <input type="text" class="form-control" id="nome" name="nome">
             </div>
             <div class="form-group">
                 <label for="sobrenome">Valor</label>
-                <input type="number" class="form-control" id="valor">
+                <input type="number" class="form-control" id="valor" name="valor">
             </div>
+            <input type="hidden" name="adicionar">
             <button type="submit" class="btn btn-primary">Adicionar</button>
             <button type="button" class="btn btn-danger" onclick="location.href = 'produtos.php'">Cancelar</button>
         </form>

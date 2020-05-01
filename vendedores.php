@@ -1,3 +1,46 @@
+<?php
+    ini_set('display_errors', 1); 
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    
+    require_once 'src/models/Vendedor.php';
+
+    if(isset($_POST["adicionar"]) && isset($_POST["nome"]) && isset($_POST["sobrenome"])){
+        $vendedor = new Vendedor($_POST["nome"],$_POST["sobrenome"]);
+        $feedback = $vendedor->create();
+        if($feedback){
+            $msg = "Novo vendedor cadastrado com sucesso!";
+        }else{
+            $msg = "Houve um erro ao tentar adicionar um novo vendedor. Por favor, tente novamente, Se o erro persistir, contate o desenvolvedor.";
+        }
+    }
+
+    if(isset($_GET["action"]) && strcmp($_GET["action"],"del") == 0 &&  isset($_GET["id"])){
+        $vendedor = new Vendedor();
+        $vendedor->setId($_GET["id"]);
+        $feedback = $vendedor->delete();
+
+        if($feedback){
+            $msg = "Vendedor excluído com sucesso!";
+        }else{
+            $msg = "Houve um erro ao tentar exclui este vendedor. Por favor, tente novamente, Se o erro persistir, contate o desenvolvedor.";
+        }
+    }
+
+    $totalVendedores = Vendedor::total();
+    $totalPaginas = ceil($totalVendedores/10);
+
+    $pagina = $_GET['p'] ?? 1;
+
+    if( $pagina > $totalPaginas || !is_int($pagina)){
+        $pagina = 1;
+    }
+
+    if($totalVendedores > 0){
+        $vendedores = Vendedor::list(null,null,0,$pagina*10-10,10);
+    }
+    
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -48,54 +91,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>00001</td>
-                            <td>João</td>
-                            <td>Paulo</td>
-                            <td>
-                                <a href="editar_vendedor.php?id=1">Editar</a>
-                                <a href="excluir_vendedor.php?id=1">Excluir</a>
-                            </td>
-                        </tr> 
-                        <tr>
-                            <td>00001</td>
-                            <td>João</td>
-                            <td>Paulo</td>
-                            <td>
-                                <a href="editar_vendedor.php?id=1">Editar</a>
-                                <a href="excluir_vendedor.php?id=1">Excluir</a>
-                            </td>
-                        </tr> 
-                        <tr>
-                            <td>00001</td>
-                            <td>João</td>
-                            <td>Paulo</td>
-                            <td>
-                                <a href="editar_vendedor.php?id=1">Editar</a>
-                                <a href="excluir_vendedor.php?id=1">Excluir</a>
-                            </td>
-                        </tr> 
-                        <tr>
-                            <td>00001</td>
-                            <td>João</td>
-                            <td>Paulo</td>
-                            <td>
-                                <a href="editar_vendedor.php?id=1">Editar</a>
-                                <a href="excluir_vendedor.php?id=1">Excluir</a>
-                            </td>
-                        </tr> 
+                        <?php if($totalVendedores == 0){ ?>
+                            <tr>
+                                <td class="table-info" colspan="4">Ainda não há vendedores. Adicione um vendedor clicando <a href="adicionar_vendedor.php">aqui</a>. </td>
+                            </tr> 
+                        <?php }else{ ?>
+                            <?php foreach($vendedores as $vendedor){ ?>
+                                
+                                <tr>
+                                    <td><?=$vendedor["id"]?></td>
+                                    <td><?=$vendedor["nome"]?></td>
+                                    <td><?=$vendedor["sobrenome"]?></td>
+                                    <td>
+                                        <a href="editar_vendedor.php?id=<?=$vendedor["id"]?>">Editar</a>
+                                        <a href="vendedores.php?action=del&id=<?=$vendedor["id"]?>">Excluir</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
             <div class="row text-center">
                 <div class="col-sm">
-                    <a href="">Anterior</a>
+                    <?php 
+                        if($pagina > 1){ 
+                            echo '<a href="vendedores.php?p='.( $pagina - 1 ).'">Anterior</a>';
+                        } 
+                    ?>
                 </div>
                 <div class="col-sm">
-                    1/10
+                    <?=$pagina."/".$totalPaginas?>
                 </div>
                 <div class="col-sm">
-                    <a href="">Próximo</a>
+                    <?php 
+                        if($pagina < $totalPaginas){ 
+                            echo '<a href="vendedores.php?p='.( $pagina + 1 ).'">Anterior</a>';
+                        } 
+                    ?>
                 </div>
             </div>
         </div>

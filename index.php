@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
+        <meta charset="utf-8" />
         <title>Gerenciador de Produtos</title>
     </head>
     <body>

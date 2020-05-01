@@ -1,3 +1,29 @@
+<?php
+    ini_set('display_errors', 1); 
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    
+    require_once 'src/models/Produto.php';
+    print_r($_POST);
+    if(isset($_POST["editar"]) && isset($_POST["nome"]) && isset($_POST["valor"]) && isset($_POST["id"])){
+        $produto = new Produto($_POST["nome"],$_POST["valor"]);
+        $produto->setId($_POST["id"]);
+        $feedback = $produto->update();
+
+        if($feedback){
+            $msg = "Informações do produto editadas sucesso!";
+        }else{
+            $msg = "Houve um erro ao tentar editar as informações do produto. Por favor, tente novamente, Se o erro persistir, contate o desenvolvedor.";
+        }
+    }
+
+    $produto = new Produto();
+    
+    if( !$produto->getFromDB($_GET["id"]) ){
+        header('Location: vendedores.php');
+    }
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,15 +58,17 @@
             </div>
         </div>
         <div class="container">
-        <form>
+        <form action="editar_produto.php?id=<?=$produto->getId()?>" method="post">
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome">
+                <input type="text" class="form-control" id="nome" name="nome" value="<?=$produto->getNome()?>">
             </div>
             <div class="form-group">
                 <label for="sobrenome">Valor</label>
-                <input type="number" class="form-control" id="valor">
+                <input type="number" class="form-control" id="valor" name="valor" value="<?=$produto->getValor()?>">
             </div>
+            <input type="hidden" name="editar">
+            <input type="hidden" name="id" value="<?=$produto->getId()?>">
             <button type="submit" class="btn btn-primary">Editar</button>
             <button type="button" class="btn btn-danger" onclick="location.href = 'produtos.php'">Cancelar</button>
         </form>
