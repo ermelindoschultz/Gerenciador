@@ -69,6 +69,103 @@ class Database{
         $query = "SELECT * FROM ".$table." WHERE id = ".$id;
         return $this->connection->query($query);
     }
+
+    /*
+    $foreing_data = [
+        [
+            "model" => "name of model related to table",
+            "fk" => "foreign key",
+            "pk" => "primary key on foreign table",
+            "table" => "foreign table",
+            "columns" => ["column1", "column2", ...]
+        ]
+    ],
+    */
+    function getByPrimaryKeyWithForeignData($table,$id,$foreing_data){
+        if(empty($foreing_data)){
+            $query = "SELECT * FROM ".$table." WHERE id = ".$id;
+        }else{
+            $foreing_columns = "";
+            $foreing_expressions = "";
+            $foreing_tables = "";
+            $inner_joins = "";
+            foreach($foreing_data as $foreing){
+                foreach($foreing["columns"] as $column){
+                    $foreing_columns .= ",".$foreing["table"].".".$column." as ".$foreing["model"]."_".$column;
+                }
+                $inner_joins .= " INNER JOIN ".$foreing["table"]." ON ".$table.".".$foreing["fk"]." = ".$foreing["table"].".".$foreing["pk"];
+            }
+
+            $foreing_columns = substr($foreing_columns,1);
+            $foreing_tables = substr($foreing_tables,1);
+            $foreing_expressions = substr($foreing_expressions,5);
+
+            $query = "SELECT ".$table.".*,".$foreing_columns." FROM ".$table.$inner_joins." WHERE ".$table.".id = ".$id;
+        }
+
+        return $this->connection->query($query);
+    }
+    function read_query_withforeingdata($table, $columns = [], $orderby = [], $order_sort = 1, $limit = -1 , $offset = 0, $foreing_data = []){
+        $columns_string = "";
+
+        if(!empty($foreing_data)){
+            $foreing_columns = "";
+            $foreing_expressions = "";
+            $foreing_tables = "";
+            $inner_joins = "";
+            foreach($foreing_data as $foreing){
+                foreach($foreing["columns"] as $column){
+                    $foreing_columns .= ",".$foreing["table"].".".$column." as ".$foreing["model"]."_".$column;
+                }
+                $inner_joins .= " INNER JOIN ".$foreing["table"]." ON ".$table.".".$foreing["fk"]." = ".$foreing["table"].".".$foreing["pk"];
+            }
+            $foreing_tables = substr($foreing_tables,1);
+            $foreing_expressions = substr($foreing_expressions,5);
+        }else{
+            $foreing_columns = "";
+            $foreing_expressions = "";
+            $foreing_tables = "";
+            $inner_joins = "";
+        }
+
+        if( empty($columns) ){
+            $columns_string = $table."."."*";
+        }else{
+            foreach($columns as $column){
+                $columns_string .= ", ".$table.".".$column;
+            }
+            $columns_string = substr($columns_string,1);
+        };
+
+        $query = "SELECT ".$columns_string.$foreing_columns." FROM ".$table.$inner_joins;
+
+        if( !empty($orderby) ){
+            $orderby_string = "";
+            foreach($orderby as $column){
+                $orderby_string .= ",".$column;
+            };
+
+            $orderby_string = substr($orderby_string, 1);
+            $query .= " ORDER BY ".$orderby_string;
+            if($order_sort == 1){
+                $query .= " ASC";
+            }else{
+                $query .= " DESC";
+            };
+        };
+
+        if($limit >= 1){
+            $query .= " LIMIT ".$limit;
+        };
+
+        if($offset > 0){
+            $query .= " OFFSET ".$offset;
+        };
+
+        $query .= ";";
+
+        return $this->connection->query($query);
+    }
     function read_query($table, $columns = [], $orderby = [], $order_sort = 1, $limit = -1 , $offset = 0){
         $columns_string = "";
 
@@ -108,7 +205,6 @@ class Database{
 
         $query .= ";";
 
-        echo $query;
         return $this->connection->query($query);
     }
 
