@@ -151,7 +151,42 @@ class Venda{
         
         return $data;
     }
+
+    public static function older(){
+        $db = new Database();
+
+        $result = $db->read_query(Venda::TABLE_NAME, [], ["data_venda"], 1, 1, 0);
+
+        if(!$result){
+            return false;
+        }
+        $row = $result->fetch_assoc();
+
+        if(empty($row)){
+            return false;
+        }
+
+        return $row;
+    }
     
+    public static function younger(){
+        $db = new Database();
+
+        $result = $db->read_query(Venda::TABLE_NAME, [], ["data_venda"], -1, 1, 0);
+
+        if(!$result){
+            return false;
+        }
+        $row = $result->fetch_assoc();
+
+        if(empty($row)){
+            return false;
+        }
+
+        return $row;
+        
+
+    }
     public static function search(){
         return false;
     }

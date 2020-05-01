@@ -14,11 +14,9 @@ a:hover{
 #logo_inicial{
     display: block;
     text-align: center;
-    font-size: 80px;
+    font-size: 100px;
     margin-top: 40px;
     margin-bottom: 40px;
-    margin-left: 25%;
-    margin-right: 25%;
 }
 
 .icone_inicial{
@@ -27,4 +25,8 @@ a:hover{
     margin-right: 25%;
     width: 50%;
     height: auto;
+}
+
+.no_border{
+    border: none;
 }

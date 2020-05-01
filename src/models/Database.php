@@ -218,6 +218,10 @@ class Database{
         return false;
     }
 
+    function complex_query($query){
+        return $this->connection->query($query);
+    }
+
     function desconnect(){
         return $this->connection->close();
     }
