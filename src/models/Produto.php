@@ -56,9 +56,44 @@ class Produto{
         $db->desconnect();
         
         return $result;
-    }    
+    }   
+    
+    function getFromDB($id){
+        $db = new Database();
 
-    public static function list($columns = [], $orderby = [], $order_sort = -1 , $offset = 0, $limit = -1){
+        $result = $db->getByPrimaryKey(Produto::TABLE_NAME, $id);   
+
+        if(!$result){
+            return $result;
+        }
+
+        $row = $result->fetch_row();
+
+        if(empty($row)){
+            return false;
+        }
+
+        $db->desconnect();
+        
+        $this->id = $id;
+        $this->nome = $row[1];
+        $this->valor = $row[2];
+
+        return true;
+    }
+
+    public static function total(){
+        $db = new Database();
+        
+        $result = $db->total(Produto::TABLE_NAME);
+
+        $db->desconnect();
+
+        return $result;
+        
+    }
+    
+    public static function list($columns = [], $orderby = [], $order_sort = -1, $limit = -1 , $offset = 0){
         $db = new Database();
         
         $result = $db->read_query(Produto::TABLE_NAME, $columns, $orderby, $order_sort, $offset,$limit);

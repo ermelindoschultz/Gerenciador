@@ -65,8 +65,11 @@ class Database{
                 return false;
         }
     }
-
-    function read_query($table, $columns = [], $orderby = [], $order_sort = 1 , $offset = 0, $limit = -1){
+    function getByPrimaryKey($table, $id){
+        $query = "SELECT * FROM ".$table." WHERE id = ".$id;
+        return $this->connection->query($query);
+    }
+    function read_query($table, $columns = [], $orderby = [], $order_sort = 1, $limit = -1 , $offset = 0){
         $columns_string = "";
 
         if( empty($columns) ){
@@ -95,20 +98,26 @@ class Database{
             };
         };
 
-        if($offset > 0){
-            $query .= " OFFSET ".$offset;
-        };
-
         if($limit >= 1){
             $query .= " LIMIT ".$limit;
+        };
+
+        if($offset > 0){
+            $query .= " OFFSET ".$offset;
         };
 
         $query .= ";";
 
         echo $query;
-
         return $this->connection->query($query);
     }
+
+    function total($table){
+        $query = "SELECT COUNT(*) FROM ".$table;
+
+        return $this->connection->query($query)->fetch_row()[0];
+    }
+
     function search_query($query){
         return false;
     }
