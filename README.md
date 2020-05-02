@@ -18,21 +18,21 @@ mv /caminho/para/o/Gerenciador /raiz/do/servidor
 
 # Configuração
 
-Antes de acessar o sistema, é necessário configurar os bancos de dados. 
+Antes de acessar o sistema, é necessário configurar o banco de dados. 
 
-Primeiro, configure o arquivo **config/database/database_constants.php** com as informações de acesso ao seu banco de dados.
+Primeiro, altere o arquivo `config/database/database_constants.php`com as informações de acesso ao seu banco de dados.
 
 Depois, há duas formas de configurar as tabelas
 
-1. Você pode adiciona-las manualmente executando as queries SQL contidas nos arquivos **config/sql/\*.sql**.
-2. Você pode executar o arquivo **config/scripts/configure_database.php**:
+1. Você pode adiciona-las manualmente executando as queries SQL contidas nos arquivos `config/sql/\*.sql`.
+2. Você pode executar o arquivo `config/scripts/configure_database.php`
 
 ```bash
 php config/script/configure_database.php
 ```
 Após estes passos, o sistema estará funcional.
 
-Você pode ainda gerar um conjunto aleatório de dados de teste executando o arquivo **tests/automated_tests**:
+Você pode ainda gerar um conjunto aleatório de dados de teste executando o arquivo `tests/automated_tests`:
 
 ```bash
 php tests/automated_tests.php
@@ -40,12 +40,22 @@ php tests/automated_tests.php
 
 # Estrutura de diretórios
 
+.                               # Diretório contendo as _views_ do sistema.        
+├── src                    
+│   ├── ajax
+│   ├── models          
+├── js
+├── css
+├── tests
+├── config
+│   ├── database
+│   ├── scripts 
+│   ├── sql    
+└── README.md
 
 
 ## Construído com
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds.
+* [Exemplo](url) - Descrição
 
 
