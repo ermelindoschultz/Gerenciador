@@ -35,8 +35,8 @@ for($i=1; $i <= $numProdutos; $i++){
     $produto->create();
 }
 
-$vendedores = Vendedor::list();
-$produtos = Produto::list();
+$vendedores = $vendedor->list();
+$produtos = $produto->list();
 
 echo "Gerando dados de vendas aleatóriamente\n";
 for($i=1; $i <= $numVendas; $i++){

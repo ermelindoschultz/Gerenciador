@@ -27,7 +27,9 @@
         }
     }
 
-    $totalVendedores = Vendedor::total();
+    $vendedor = new Vendedor();
+
+    $totalVendedores = $vendedor->total();
     $totalPaginas = ceil($totalVendedores/10);
 
     $pagina = $_GET['p'] ?? 1;
@@ -37,7 +39,7 @@
     }
 
     if($totalVendedores > 0){
-        $vendedores = Vendedor::list(null,null,0,$pagina*10-10,10);
+        $vendedores = $vendedor->list(null,null,0,$pagina*10-10,10);
     }
     
 ?>

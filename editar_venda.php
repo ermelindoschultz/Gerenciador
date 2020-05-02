@@ -7,8 +7,11 @@
     require_once 'src/models/Vendedor.php';
     require_once 'src/models/Produto.php';
     
-    $produtos = Produto::list();
-    $vendedores = Vendedor::list();
+    $produto = new Produto();
+    $vendedor = new Vendedor();
+
+    $produtos = $produto->list();
+    $vendedores = $vendedor->list();
 
     if(isset($_POST["editar"]) && isset($_POST["id_vendedor"]) && isset($_POST["id_produto"]) && isset($_POST["valor"]) && 
        isset($_POST["dia_venda"]) && isset($_POST["hora_venda"]) && isset($_POST["id"])){
@@ -32,7 +35,9 @@
 
     $venda = new Venda();
 
-    if( !$venda->getFromDB($_GET["id"],null) ){
+    $venda->setId($_GET["id"]);
+
+    if( !$venda->getFromDB() ){
         header('Location: vendas.php');
     };
 ?>
@@ -92,7 +97,7 @@
                     <label for="id_vendedor">Vendedor</label>
                     <select class="custom-select my-1 mr-sm-2" id="id_vendedor" name="id_vendedor">
                     <?php foreach($vendedores as $vendedor){ ?>
-                            <option value="<?=$vendedor["id"]?>" <?=($vendedor["id"] == $venda->getIdVendedor())?"selected":null;?>><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?>s</option>
+                            <option value="<?=$vendedor["id"]?>" <?=($vendedor["id"] == $venda->getIdVendedor())?"selected":null;?>><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?></option>
                         <?php } ?>
                     </select>
                 </div>

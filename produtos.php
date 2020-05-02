@@ -26,7 +26,10 @@
            $msg = "Houve um erro ao tentar exclui este produto. Por favor, tente novamente, Se o erro persistir, contate o desenvolvedor.";
        }
    }
-   $totalProdutos = Produto::total();
+   
+   $produto = new Produto();
+
+   $totalProdutos = $produto->total();
    $totalPaginas = ceil($totalProdutos/10);
 
    $pagina = $_GET['p'] ?? 1;
@@ -36,10 +39,9 @@
    }
 
    if($totalProdutos > 0){
-       $produtos = Produto::list(null,null,0,$pagina*10-10,10);
+       $produtos = $produto->list(null,null,0,$pagina*10-10,10);
    }
    
-   echo !is_int($pagina);
 ?>
 <!DOCTYPE html>
 <html>

@@ -5,8 +5,11 @@
     require_once 'src/models/Vendedor.php';
     require_once 'src/models/Produto.php';
     
-    $produtos = Produto::list();
-    $vendedores = Vendedor::list();
+    $produto = new Produto();
+    $vendedor = new Vendedor();
+
+    $produtos = $produto->list();
+    $vendedores = $vendedor->list();
 
     if(empty($produtos) || empty($vendedores)){
         header("Location: vendas.php?err=1");

@@ -18,9 +18,9 @@
     }
 
     $produto = new Produto();
-    
-    if( !$produto->getFromDB($_GET["id"]) ){
-        header('Location: vendedores.php');
+    $produto->setId($_GET["id"]);
+    if( !$produto->getFromDB() ){
+        header('Location: produtos.php');
     }
 
 ?>

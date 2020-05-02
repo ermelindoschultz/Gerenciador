@@ -18,8 +18,9 @@
     }
 
     $vendedor = new Vendedor();
+    $vendedor->setId($_GET["id"]);
     
-    if( !$vendedor->getFromDB($_GET["id"]) ){
+    if( !$vendedor->getFromDB() ){
         header('Location: vendedores.php');
     }
 

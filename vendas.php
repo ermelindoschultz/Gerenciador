@@ -44,7 +44,9 @@
         }
     }
 
-    $totalVendas = Venda::total();
+    $venda = new Venda();
+
+    $totalVendas = $venda->total();
     $totalPaginas = ceil($totalVendas/10);
 
     $pagina = $_GET['p'] ?? 1;
@@ -71,7 +73,7 @@
     ];
 
     if($totalVendas > 0){
-        $vendas = Venda::list(null,null,0,$pagina*10-10,10,$foreing_data);
+        $vendas = $venda->listWithForeingData(null,null,0,$pagina*10-10,10,$foreing_data);
     }
 ?>
 <!DOCTYPE html>

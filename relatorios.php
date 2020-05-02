@@ -9,16 +9,19 @@
     require_once 'src/models/Venda.php';  
     
     $analyst = new DataAnalysis();
+    $vendedor = new Vendedor();
+    $produto = new Produto();
+    $venda = new Venda();
 
-    $totalVendedores = Vendedor::total();
-    $totalProdutos = Produto::total();
-    $totalVendas = Venda::total();
+    $totalVendedores = $vendedor->total();
+    $totalProdutos = $produto->total();
+    $totalVendas = $venda->total();
 
-    $vendedores = Vendedor::list(["id","nome","sobrenome"]);
-    $produtos = Produto::list(["id","nome"]);
+    $vendedores = $vendedor->list(["id","nome","sobrenome"]);
+    $produtos = $produto->list(["id","nome"]);
 
-    $vendaMaisAntiga = Venda::older();
-    $vendaMaisNova = Venda::younger();
+    $vendaMaisAntiga = $venda->older();
+    $vendaMaisNova = $venda->younger();
 
     if(!empty($vendaMaisAntiga)){
         $primeiroAno = date("Y",strtotime($vendaMaisAntiga["data_venda"]));
