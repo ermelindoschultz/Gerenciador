@@ -39,7 +39,7 @@ php tests/automated_tests.php
 ```
 
 # Estrutura de diretórios
-
+```bash
 .                               # Diretório contendo as _views_ do sistema.        
 ├── src                         # Diretório contendo as _views_ do sistema.                    
 │   ├── ajax                    # Diretório contendo as _views_ do sistema.
@@ -52,7 +52,7 @@ php tests/automated_tests.php
 │   ├── scripts                 # Diretório contendo as _views_ do sistema. 
 │   ├── sql                     # Diretório contendo as _views_ do sistema.     
 └── README.md                   # Diretório contendo as _views_ do sistema.
-
+```
 
 ## Construído com
 
