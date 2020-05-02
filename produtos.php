@@ -38,6 +38,8 @@
    if($totalProdutos > 0){
        $produtos = Produto::list(null,null,0,$pagina*10-10,10);
    }
+   
+   echo !is_int($pagina);
 ?>
 <!DOCTYPE html>
 <html>
