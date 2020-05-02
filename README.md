@@ -4,7 +4,7 @@ Este repositório contém um sistema completo simples para gerenciamento de vend
 
 # Dependências
 
-Este sistema usa PHP >= 7 e MySQL 5.7.
+Este sistema usa PHP >= 7.2 e MySQL 5.7.
 
 # Instalação
 
@@ -40,22 +40,26 @@ php tests/automated_tests.php
 
 # Estrutura de diretórios
 ```bash
-.                               # Diretório contendo as _views_ do sistema.        
-├── src                         # Diretório contendo as _views_ do sistema.                    
-│   ├── ajax                    # Diretório contendo as _views_ do sistema.
-│   ├── models                  # Diretório contendo as _views_ do sistema.          
-├── js                          # Diretório contendo as _views_ do sistema.
-├── css                         # Diretório contendo as _views_ do sistema.
-├── tests                       # Diretório contendo as _views_ do sistema.
-├── config                      # Diretório contendo as _views_ do sistema.
-│   ├── database                # Diretório contendo as _views_ do sistema.
-│   ├── scripts                 # Diretório contendo as _views_ do sistema. 
-│   ├── sql                     # Diretório contendo as _views_ do sistema.     
-└── README.md                   # Diretório contendo as _views_ do sistema.
+.                               # Contém as _views_ do sistema.        
+├── src                         # Contém classes e scripts de manipulação de dados.                    
+│   ├── ajax                    # Contém scripts de resposta à chamadas Ajax.
+│   ├── models                  # Contém classes de manipulação de dados.          
+├── js                          # Contém scripts Javascript.
+├── css                         # Contém arquivos de estilização CSS.
+├── tests                       # Contém scripts para automatizar testes no sistema.
+├── config                      # Contém arquivos de configuração.
+│   ├── database                # Contém arquivos com informações de acesso ao Banco de Dados.
+│   ├── scripts                 # Contém scripts diversos para configuração do sistema. 
+│   ├── sql                     # Contém arquivos SQL com as tabelas do sistema.     
+└── README.md                   # Este arquivo.
 ```
 
-## Construído com
+## Este software foi construído sobre o ombro de gigantes!
 
-* [Exemplo](url) - Descrição
+* [Bootstrap](https://getbootstrap.com/) - The most popular HTML, CSS, and JS library in the world
+* [Jquery](https://jquery.com/) e [Jquery maskMoney Plugin](https://plugins.jquery.com/maskMoney/)
+* [Chart.js](https://www.chartjs.org/)
+
+
 
 
