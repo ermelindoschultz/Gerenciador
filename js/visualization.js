@@ -1,29 +1,41 @@
+var chartFaturamentoPorMes;
+var chartVendasPorProduto;
+var chartFaturamentoPorProduto;
+var chartVendasPorVendedor;
+var chartFaturamentoPorVendedor;
+var meses = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+
+function generateChart(ctx,labels,configChart){
+    return new Chart(ctx, {
+        type: configChart.type,
+        data: {
+            labels: labels,
+            datasets: configChart.datasets
+        },
+        options:{
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        suggestedMax: configChart.maxvalue
+                    }
+                }]
+            }   
+        }
+    });
+}
+
 function updateVendasPorProduto(id_produto, ano, id_produto_comparar = false){
     $.post({
         url: "src/ajax/getVendasPorProduto.php",
         type: 'get',
         data: { id_produto, ano, id_produto_comparar},
         success: function(response){
-            console.log(response);
             configChart = $.parseJSON(response);
             var ctx = document.getElementById("vendasPorProduto");
-            new Chart(ctx, {
-                type: configChart.type,
-                data: {
-                    labels: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
-                    datasets: configChart.datasets
-                },
-                options:{
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                suggestedMax: configChart.maxvalue
-                            }
-                        }]
-                    }   
-                }
-            });
+
+            chartVendasPorProduto.destroy();
+            chartVendasPorProduto = generateChart(ctx,meses,configChart);
         },
         error: function(response){
             console.log(response);
@@ -37,26 +49,11 @@ function updateFaturamentoPorProduto(id_produto, ano, id_produto_comparar = fals
         type: 'get',
         data: { id_produto, ano, id_produto_comparar},
         success: function(response){
-            //console.log(response);
             configChart = $.parseJSON(response);
             var ctx = document.getElementById("faturamentoPorProduto");
-            new Chart(ctx, {
-                type: configChart.type,
-                data: {
-                    labels: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
-                    datasets: configChart.datasets
-                },
-                options:{
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                suggestedMax: configChart.maxvalue
-                            }
-                        }]
-                    }   
-                }
-            });
+
+            chartFaturamentoPorProduto.destroy();
+            chartFaturamentoPorProduto = generateChart(ctx,meses,configChart);
         },
         error: function(response){
             console.log(response);
@@ -70,26 +67,11 @@ function updateFaturamentoPorMes(ano, ano_comparar = false){
         type: 'get',
         data: { ano, ano_comparar},
         success: function(response){
-            //console.log(response);
             configChart = $.parseJSON(response);
             var ctx = document.getElementById("faturamentoPorMes");
-            new Chart(ctx, {
-                type: configChart.type,
-                data: {
-                    labels: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
-                    datasets: configChart.datasets
-                },
-                options:{
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                suggestedMax: configChart.maxvalue
-                            }
-                        }]
-                    }   
-                }
-            });
+
+            chartFaturamentoPorMes.destroy();
+            chartFaturamentoPorMes = generateChart(ctx,meses,configChart);
         },
         error: function(response){
             console.log(response);
@@ -103,26 +85,11 @@ function updateVendasPorVendedor(id_vendedor, ano, id_vendedor_comparar = false)
         type: 'get',
         data: { id_vendedor, ano, id_vendedor_comparar},
         success: function(response){
-            //console.log(response);
             configChart = $.parseJSON(response);
             var ctx = document.getElementById("vendasPorVendedor");
-            new Chart(ctx, {
-                type: configChart.type,
-                data: {
-                    labels: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
-                    datasets: configChart.datasets
-                },
-                options:{
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                suggestedMax: configChart.maxvalue
-                            }
-                        }]
-                    }   
-                }
-            });
+
+            chartVendasPorVendedor.destroy();
+            chartVendasPorVendedor = generateChart(ctx,meses,configChart);
         },
         error: function(response){
             console.log(response);
@@ -138,23 +105,9 @@ function updateFaturamentoPorVendedor(id_vendedor, ano, id_vendedor_comparar = f
         success: function(response){
             configChart = $.parseJSON(response);
             var ctx = document.getElementById("faturamentoPorVendedor");
-            new Chart(ctx, {
-                type: configChart.type,
-                data: {
-                    labels: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
-                    datasets: configChart.datasets
-                },
-                options:{
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                suggestedMax: configChart.maxvalue
-                            }
-                        }]
-                    }   
-                }
-            });
+
+            chartFaturamentoPorVendedor.destroy();
+            chartFaturamentoPorVendedor = generateChart(ctx,meses,configChart);
         },
         error: function(response){
             console.log(response);
@@ -165,6 +118,12 @@ function updateFaturamentoPorVendedor(id_vendedor, ano, id_vendedor_comparar = f
 
 
 $(document).ready(function(){
+
+    chartFaturamentoPorMes = new Chart(document.getElementById("faturamentoPorMes"));
+    chartFaturamentoPorProduto = new Chart(document.getElementById("faturamentoPorProduto"));
+    chartVendasPorProduto = new Chart(document.getElementById("vendasPorProduto"));
+    chartFaturamentoPorVendedor = new Chart(document.getElementById("faturamentoPorVendedor"));
+    chartVendasPorVendedor = new Chart(document.getElementById("vendasPorVendedor"));
 
     $( "#formFaturamentoPorMes" ).change(function() {
         ano = $("#anoFaturaPorMes").val();

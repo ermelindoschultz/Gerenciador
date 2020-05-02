@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
         <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+        <script type="text/javascript" src="js/chart.min.js"></script>
         <script type="text/javascript" src="js/visualization.js"></script>
         <meta charset="utf-8" />
         <title>Gerenciador de Produtos</title>
