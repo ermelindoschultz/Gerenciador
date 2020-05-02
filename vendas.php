@@ -52,7 +52,7 @@
         $pagina = 1;
     }
 
-    $foreing_data = [
+    $foreign_data = [
         [
             "model" => "vendedor",
             "fk" => "id_vendedor",
@@ -70,7 +70,7 @@
     ];
 
     if($totalVendas > 0){
-        $vendas = $venda->listWithForeingData(null,null,0,$pagina*10-10,10,$foreing_data);
+        $vendas = $venda->listWithForeignData(null,null,0,$pagina*10-10,10,$foreign_data);
     }
 ?>
 <!DOCTYPE html>

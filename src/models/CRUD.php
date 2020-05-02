@@ -67,10 +67,10 @@ class CRUD{
         return true;
     }
 
-    function getFromDBWithForeingData($foreingData){
+    function getFromDBWithForeingData($foreignData){
         $db = new Database();
 
-        $result = $db->getByPrimaryKeyWithForeignData($this->tableName, $id, $foreingData);   
+        $result = $db->getByPrimaryKeyWithForeignData($this->tableName, $id, $foreignData);   
 
         if(!$result){
             return $result;
@@ -123,10 +123,10 @@ class CRUD{
         return $data;
     }
 
-    function listWithForeingData($columns = [], $orderby = [], $order_sort = -1, $limit = -1 , $offset = 0,$foreing_data = []){
+    function listWithForeignData($columns = [], $orderby = [], $order_sort = -1, $limit = -1 , $offset = 0,$foreign_data = []){
         $db = new Database();
         
-        $result = $db->read_query_withforeingdata($this->tableName, $columns, $orderby, $order_sort, $offset,$limit, $foreing_data);
+        $result = $db->read_query_withforeigndata($this->tableName, $columns, $orderby, $order_sort, $offset,$limit, $foreign_data);
 
         $data = [];
         while($row = $result->fetch_assoc()){
@@ -139,11 +139,11 @@ class CRUD{
                     $element[$column] = $row[$column];
                 }
 
-                //Updating foreing elements
-                foreach($foreing_data as $fd){
+                //Updating foreign elements
+                foreach($foreign_data as $fd){
                     foreach($fd["columns"] as $columns){
-                        $foreing_column_name = $fd["model"]."_".$column;
-                        $element[$foreing_column_name] = $row[$$foreing_column_name];
+                        $foreign_column_name = $fd["model"]."_".$column;
+                        $element[$foreign_column_name] = $row[$$foreign_column_name];
                     }
                 }
 

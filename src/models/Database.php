@@ -61,7 +61,7 @@ class Database{
     }
 
     /*
-    $foreing_data = [
+    $foreign_data = [
         [
             "model" => "name of model related to table",
             "fk" => "foreign key",
@@ -71,50 +71,50 @@ class Database{
         ]
     ],
     */
-    function getByPrimaryKeyWithForeignData($table,$id,$foreing_data){
-        if(empty($foreing_data)){
+    function getByPrimaryKeyWithForeignData($table,$id,$foreignData){
+        if(empty($foreignData)){
             $query = "SELECT * FROM ".$table." WHERE id = ".$id;
         }else{
-            $foreing_columns = "";
-            $foreing_expressions = "";
-            $foreing_tables = "";
+            $foreign_columns = "";
+            $foreign_expressions = "";
+            $foreign_tables = "";
             $inner_joins = "";
-            foreach($foreing_data as $foreing){
-                foreach($foreing["columns"] as $column){
-                    $foreing_columns .= ",".$foreing["table"].".".$column." as ".$foreing["model"]."_".$column;
+            foreach($foreignData as $foreign){
+                foreach($foreign["columns"] as $column){
+                    $foreign_columns .= ",".$foreign["table"].".".$column." as ".$foreign["model"]."_".$column;
                 }
-                $inner_joins .= " INNER JOIN ".$foreing["table"]." ON ".$table.".".$foreing["fk"]." = ".$foreing["table"].".".$foreing["pk"];
+                $inner_joins .= " INNER JOIN ".$foreign["table"]." ON ".$table.".".$foreign["fk"]." = ".$foreign["table"].".".$foreign["pk"];
             }
 
-            $foreing_columns = substr($foreing_columns,1);
-            $foreing_tables = substr($foreing_tables,1);
-            $foreing_expressions = substr($foreing_expressions,5);
+            $foreign_columns = substr($foreign_columns,1);
+            $foreign_tables = substr($foreign_tables,1);
+            $foreign_expressions = substr($foreign_expressions,5);
 
-            $query = "SELECT ".$table.".*,".$foreing_columns." FROM ".$table.$inner_joins." WHERE ".$table.".id = ".$id;
+            $query = "SELECT ".$table.".*,".$foreign_columns." FROM ".$table.$inner_joins." WHERE ".$table.".id = ".$id;
         }
 
         return $this->connection->query($query);
     }
-    function read_query_withforeingdata($table, $columns = [], $orderby = [], $order_sort = 1, $limit = -1 , $offset = 0, $foreing_data = []){
+    function read_query_withforeigndata($table, $columns = [], $orderby = [], $order_sort = 1, $limit = -1 , $offset = 0, $foreignData = []){
         $columns_string = "";
 
-        if(!empty($foreing_data)){
-            $foreing_columns = "";
-            $foreing_expressions = "";
-            $foreing_tables = "";
+        if(!empty($foreignData)){
+            $foreign_columns = "";
+            $foreign_expressions = "";
+            $foreign_tables = "";
             $inner_joins = "";
-            foreach($foreing_data as $foreing){
-                foreach($foreing["columns"] as $column){
-                    $foreing_columns .= ",".$foreing["table"].".".$column." as ".$foreing["model"]."_".$column;
+            foreach($foreignData as $foreign){
+                foreach($foreign["columns"] as $column){
+                    $foreign_columns .= ",".$foreign["table"].".".$column." as ".$foreign["model"]."_".$column;
                 }
-                $inner_joins .= " INNER JOIN ".$foreing["table"]." ON ".$table.".".$foreing["fk"]." = ".$foreing["table"].".".$foreing["pk"];
+                $inner_joins .= " INNER JOIN ".$foreign["table"]." ON ".$table.".".$foreign["fk"]." = ".$foreign["table"].".".$foreign["pk"];
             }
-            $foreing_tables = substr($foreing_tables,1);
-            $foreing_expressions = substr($foreing_expressions,5);
+            $foreign_tables = substr($foreign_tables,1);
+            $foreign_expressions = substr($foreign_expressions,5);
         }else{
-            $foreing_columns = "";
-            $foreing_expressions = "";
-            $foreing_tables = "";
+            $foreign_columns = "";
+            $foreign_expressions = "";
+            $foreign_tables = "";
             $inner_joins = "";
         }
 
@@ -127,7 +127,7 @@ class Database{
             $columns_string = substr($columns_string,1);
         };
 
-        $query = "SELECT ".$columns_string.$foreing_columns." FROM ".$table.$inner_joins;
+        $query = "SELECT ".$columns_string.$foreign_columns." FROM ".$table.$inner_joins;
 
         if( !empty($orderby) ){
             $orderby_string = "";
