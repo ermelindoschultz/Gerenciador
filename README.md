@@ -1,2 +1,3 @@
 # Gerenciador
-Sistema de gerenciador de produtos desenvolvido como parte do processo seletivo da Commcepta. 
+
+Este repositório contém um sistema completo simples para gerenciamento de vendas utilizando PHP puro. Foi desenvolvido como parte do processo seletivo da Commcepta Design. 
