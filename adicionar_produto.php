@@ -3,6 +3,9 @@
     <head>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery.maskMoney.js"></script>
+        <script src="js/validation.js"></script>
         <meta charset="utf-8" />
         <title>Gerenciador de Produtos</title>
     </head>
@@ -39,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label for="sobrenome">Valor</label>
-                <input type="number" class="form-control" id="valor" name="valor">
+                <input type="number" step="any" class="form-control money" id="valor" name="valor">
             </div>
             <input type="hidden" name="adicionar">
             <button type="submit" class="btn btn-primary">Adicionar</button>

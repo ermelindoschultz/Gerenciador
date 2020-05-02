@@ -5,6 +5,14 @@
     
     require_once 'src/models/Venda.php';
 
+    if(isset($_GET['err'])){
+        switch($_GET['err']){
+            case 1:
+                $feedback = false;
+                $msg = "Impossível adicionar uma venda. Para que isso seja possível, é necessário que existam pelo menos um vendedor e um produto. Para prosseguir, adicione um vendedor e um produto pelo menos.";
+                break;
+        }
+    }
     if(isset($_POST["adicionar"]) && isset($_POST["id_vendedor"]) && isset($_POST["id_produto"]) && isset($_POST["valor"]) && 
         isset($_POST["dia_venda"]) && isset($_POST["hora_venda"])){
 
@@ -100,6 +108,11 @@
             </div>
         </div>
         <div class="container">
+            <?php if(!empty($msg)){ ?>
+                <div class="row alert <?=($feedback)? "alert-success" :"alert-danger"; ?> ">
+                    <?=$msg;?>
+                </div>
+            <?php } ?>
             <div class="row">
                 <div class="col-sm">
                     <button type="button" class="btn btn-outline-primary" onclick="location.href = 'adicionar_venda.php'">Adicionar nova venda</button>

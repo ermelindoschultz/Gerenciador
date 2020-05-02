@@ -58,21 +58,27 @@
                 </div>
             </div>
         </div>
+            
         <div class="container">
-        <form action="editar_vendedor.php?id=<?=$vendedor->getId()?>" method="post">
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" value="<?=$vendedor->getNome();?>">
-            </div>
-            <div class="form-group">
-                <label for="sobrenome">Sobrenome</label>
-                <input type="text" class="form-control" id="sobrenome" name="sobrenome" value="<?=$vendedor->getSobrenome();?>">
-            </div>
-            <input type="hidden" name="editar">
-            <input type="hidden" name="id" value="<?=$vendedor->getId();?>">
-            <button type="submit" class="btn btn-primary">Editar</button>
-            <button type="button" class="btn btn-danger" onclick="location.href = 'vendedores.php'">Cancelar</button>
-        </form>
+            <?php if(!empty($msg)){ ?>
+                <div class="row alert <?=($feedback)? "alert-success" :"alert-danger"; ?> ">
+                    <?=$msg;?>
+                </div>
+            <?php } ?>
+            <form action="editar_vendedor.php?id=<?=$vendedor->getId()?>" method="post">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" value="<?=$vendedor->getNome();?>">
+                </div>
+                <div class="form-group">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input type="text" class="form-control" id="sobrenome" name="sobrenome" value="<?=$vendedor->getSobrenome();?>">
+                </div>
+                <input type="hidden" name="editar">
+                <input type="hidden" name="id" value="<?=$vendedor->getId();?>">
+                <button type="submit" class="btn btn-primary">Editar</button>
+                <button type="button" class="btn btn-danger" onclick="location.href = 'vendedores.php'">Cancelar</button>
+            </form>
         </div>
     </body>
 </html>

@@ -23,7 +23,7 @@
         if($feedback){
             $msg = "Vendedor excluído com sucesso!";
         }else{
-            $msg = "Houve um erro ao tentar exclui este vendedor. Por favor, tente novamente, Se o erro persistir, contate o desenvolvedor.";
+            $msg = "Houve um erro ao tentar excluir este vendedor. Por favor, tente novamente, Se o erro persistir, contate o desenvolvedor.";
         }
     }
 
@@ -32,7 +32,7 @@
 
     $pagina = $_GET['p'] ?? 1;
 
-    if( $pagina > $totalPaginas || !is_int($pagina)){
+    if( $pagina > $totalPaginas ){
         $pagina = 1;
     }
 
@@ -75,6 +75,11 @@
             </div>
         </div>
         <div class="container">
+            <?php if(!empty($msg)){ ?>
+                <div class="row alert <?=($feedback)? "alert-success" :"alert-danger"; ?> ">
+                    <?=$msg;?>
+                </div>
+            <?php } ?>
             <div class="row">
                 <div class="col-sm">
                     <button type="button" class="btn btn-outline-primary" onclick="location.href = 'adicionar_vendedor.php'">Adicionar novo vendedor</button>
@@ -121,12 +126,14 @@
                     ?>
                 </div>
                 <div class="col-sm">
-                    <?=$pagina."/".$totalPaginas?>
+                    <?php if($totalPaginas > 0){ ?>
+                        <?=$pagina."/".$totalPaginas?>
+                    <?php } ?>
                 </div>
                 <div class="col-sm">
                     <?php 
                         if($pagina < $totalPaginas){ 
-                            echo '<a href="vendedores.php?p='.( $pagina + 1 ).'">Anterior</a>';
+                            echo '<a href="vendedores.php?p='.( $pagina + 1 ).'">Próxima</a>';
                         } 
                     ?>
                 </div>

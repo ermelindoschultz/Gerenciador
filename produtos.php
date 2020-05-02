@@ -75,6 +75,11 @@
             </div>
         </div>
         <div class="container">
+            <?php if(!empty($msg)){ ?>
+                <div class="row alert <?=($feedback)? "alert-success" :"alert-danger"; ?> ">
+                    <?=$msg;?>
+                </div>
+            <?php } ?>
             <div class="row">
                 <div class="col-sm">
                     <button type="button" class="btn btn-outline-primary" onclick="location.href = 'adicionar_produto.php'">Adicionar novo produto</button>
@@ -93,7 +98,7 @@
                     <tbody>
                         <?php if($totalProdutos == 0){ ?>
                             <tr>
-                                <td class="table-info" colspan="4">Ainda não há produto. Adicione um produto clicando <a href="adicionar_produto.php">aqui</a>. </td>
+                                <td class="table-info" colspan="4">Ainda não há produtos. Adicione um produto clicando <a href="adicionar_produto.php">aqui</a>. </td>
                             </tr> 
                         <?php }else{ ?>
                             <?php foreach($produtos as $produto){ ?>
@@ -120,7 +125,9 @@
                     ?>
                 </div>
                 <div class="col-sm">
-                    <?=$pagina."/".$totalPaginas?>
+                    <?php if($totalPaginas > 0){ ?>
+                        <?=$pagina."/".$totalPaginas?>
+                    <?php } ?>
                 </div>
                 <div class="col-sm">
                     <?php 

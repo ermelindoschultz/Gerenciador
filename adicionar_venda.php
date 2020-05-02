@@ -8,12 +8,19 @@
     $produtos = Produto::list();
     $vendedores = Vendedor::list();
 
+    if(empty($produtos) || empty($vendedores)){
+        header("Location: vendas.php?err=1");
+    }
+
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery.maskMoney.js"></script>
+        <script src="js/validation.js"></script>
         <meta charset="utf-8" />
         <title>Gerenciador de Produtos</title>
     </head>
@@ -62,7 +69,7 @@
             </div>
             <div class="form-group">
                 <label for="valor">Valor</label>
-                <input type="number" class="form-control" id="valor" name="valor" required>
+                <input type="number" step=any class="form-control money" id="valor" name="valor" value="<?=money_format("%n",$produto["valor"])?>" required>
             </div>
             <div class="form-group">
                 <label for="observacao">Observação</label>
