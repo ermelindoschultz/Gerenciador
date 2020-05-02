@@ -4,12 +4,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+require(__DIR__."/../database/database_constants.php");
 require(__DIR__."/../../src/models/Database.php");
 
 
 $db = new Database();
 
-$db->complex_query("ALTER ".Database::MYSQL_DBNAME." gerenciador CHARSET = UTF8 COLLATE = utf8_general_ci;");
+$db->complex_query("ALTER ".MYSQL_DBNAME." gerenciador CHARSET = UTF8 COLLATE = utf8_general_ci;");
 
 $r = $db->complex_query("CREATE TABLE vendedores (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
