@@ -20,11 +20,10 @@
     $vendaMaisAntiga = Venda::older();
     $vendaMaisNova = Venda::younger();
 
-    $primeiroAno = date("Y",strtotime($vendaMaisAntiga["data_venda"]));
-    $ultimoAno = date("Y",strtotime($vendaMaisNova["data_venda"]));
-
-
-
+    if(!empty($vendaMaisAntiga)){
+        $primeiroAno = date("Y",strtotime($vendaMaisAntiga["data_venda"]));
+        $ultimoAno = date("Y",strtotime($vendaMaisNova["data_venda"]));
+    }
 ?>
 <html>
     <head>
@@ -72,8 +71,7 @@
                 <div class="row">
                     <div class="col-sm">
                         <h1>Visão geral</h1>
-                    </div>
-                    
+                    </div> 
                 </div>
                 <div class="row">
                     <div class="col-sm">
@@ -111,104 +109,56 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <h1>Faturamento total por mês</h1>
-                        <form id="formFaturamentoPorMes">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Ano </span>
+            <?php if($totalVendas > 0){ ?>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Faturamento total por mês</h1>
+                            <form id="formFaturamentoPorMes">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Ano </span>
+                                            </div>
+                                            <select class="form-control" id="anoFaturaPorMes">
+                                                <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
+                                                    <option value="<?=$ano?>"><?=$ano?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
-                                        <select class="form-control" id="anoFaturaPorMes">
-                                            <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
-                                                <option value="<?=$ano?>"><?=$ano?></option>
-                                            <?php } ?>
-                                        </select>
                                     </div>
-                                </div>
-                                <div class="col-sm">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Comparar com: </span>
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Comparar com: </span>
+                                            </div>
+                                            <select class="form-control" id="anoCompararFaturaPorMes">
+                                                <option>Não comparar</option>
+                                                <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
+                                                    <option value="<?=$ano?>"><?=$ano?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
-                                        <select class="form-control" id="anoCompararFaturaPorMes">
-                                            <option>Não comparar</option>
-                                            <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
-                                                <option value="<?=$ano?>"><?=$ano?></option>
-                                            <?php } ?>
-                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                        <canvas id="faturamentoPorMes" width="80%" height="30"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <h1>Vendas por produto</h1>
-                        <form id="formVendasPorProduto">
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Ano </span>
-                                    </div>
-                                    <select class="form-control" id="anoVendasPorProduto">
-                                            <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
-                                                <option value="<?=$ano?>"><?=$ano?></option>
-                                            <?php } ?>
-                                        </select>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Produto </span>
-                                    </div>
-                                    <select class="form-control" id="idVendasPorProduto">
-                                        <?php foreach($produtos as $produto){ ?>
-                                            <option value="<?=$produto["id"]?>"><?=$produto["nome"]?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Comparar com: </span>
-                                    </div>
-                                    <select class="form-control" id="idCompararVendasPorProduto">
-                                        <option>Não comparar</option>
-                                        <?php foreach($produtos as $produto){ ?>
-                                            <option value="<?=$produto["id"]?>"><?=$produto["nome"]?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
+                            </form>
+                            <canvas id="faturamentoPorMes" width="80%" height="30"></canvas>
                         </div>
-                        </form>
-                        <canvas id="vendasPorProduto" width="80%" height="30"></canvas>
                     </div>
                 </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <h1>Faturamento por produto</h1>
-                        <form id="formFaturamentoPorProduto">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Vendas por produto</h1>
+                            <form id="formVendasPorProduto">
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Ano </span>
                                         </div>
-                                        <select class="form-control" id="anoFaturamentoPorProduto">
+                                        <select class="form-control" id="anoVendasPorProduto">
                                                 <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
                                                     <option value="<?=$ano?>"><?=$ano?></option>
                                                 <?php } ?>
@@ -220,7 +170,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Produto </span>
                                         </div>
-                                        <select class="form-control" id="idFaturamentoPorProduto">
+                                        <select class="form-control" id="idVendasPorProduto">
                                             <?php foreach($produtos as $produto){ ?>
                                                 <option value="<?=$produto["id"]?>"><?=$produto["nome"]?></option>
                                             <?php } ?>
@@ -232,7 +182,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Comparar com: </span>
                                         </div>
-                                        <select class="form-control" id="idCompararFaturamentoPorProduto">
+                                        <select class="form-control" id="idCompararVendasPorProduto">
                                             <option>Não comparar</option>
                                             <?php foreach($produtos as $produto){ ?>
                                                 <option value="<?=$produto["id"]?>"><?=$produto["nome"]?></option>
@@ -241,110 +191,159 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        <canvas id="faturamentoPorProduto" width="80%" height="30"></canvas>
+                            </form>
+                            <canvas id="vendasPorProduto" width="80%" height="30"></canvas>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <h1>Vendas por vendedor</h1>
-                        <form id="formVendasPorVendedor">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Ano </span>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Faturamento por produto</h1>
+                            <form id="formFaturamentoPorProduto">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Ano </span>
+                                            </div>
+                                            <select class="form-control" id="anoFaturamentoPorProduto">
+                                                    <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
+                                                        <option value="<?=$ano?>"><?=$ano?></option>
+                                                    <?php } ?>
+                                                </select>
                                         </div>
-                                        <select class="form-control" id="anoVendasPorVendedor">
-                                                <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
-                                                    <option value="<?=$ano?>"><?=$ano?></option>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Produto </span>
+                                            </div>
+                                            <select class="form-control" id="idFaturamentoPorProduto">
+                                                <?php foreach($produtos as $produto){ ?>
+                                                    <option value="<?=$produto["id"]?>"><?=$produto["nome"]?></option>
                                                 <?php } ?>
                                             </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Vendedor </span>
                                         </div>
-                                        <select class="form-control" id="idVendasPorVendedor">
-                                            <?php foreach($vendedores as $vendedor){ ?>
-                                                <option value="<?=$vendedor["id"]?>"><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?></option>
-                                            <?php } ?>
-                                        </select>
                                     </div>
-                                </div>
-                                <div class="col-sm">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Comparar com: </span>
-                                        </div>
-                                        <select class="form-control" id="idCompararVendasPorVendedor">
-                                            <option>Não comparar</option>
-                                            <?php foreach($vendedores as $vendedor){ ?>
-                                                <option value="<?=$vendedor["id"]?>"><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <canvas id="vendasPorVendedor" width="80%" height="30"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <h1>Faturamento por vendedor</h1>
-                        <form id="formFaturamentoPorVendedor">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Ano </span>
-                                        </div>
-                                        <select class="form-control" id="anoFaturamentoPorVendedor">
-                                                <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
-                                                    <option value="<?=$ano?>"><?=$ano?></option>
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Comparar com: </span>
+                                            </div>
+                                            <select class="form-control" id="idCompararFaturamentoPorProduto">
+                                                <option>Não comparar</option>
+                                                <?php foreach($produtos as $produto){ ?>
+                                                    <option value="<?=$produto["id"]?>"><?=$produto["nome"]?></option>
                                                 <?php } ?>
                                             </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Vendedor </span>
                                         </div>
-                                        <select class="form-control" id="idFaturamentoPorVendedor">
-                                            <?php foreach($vendedores as $vendedor){ ?>
-                                                <option value="<?=$vendedor["id"]?>"><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?></option>
-                                            <?php } ?>
-                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-sm">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Comparar com: </span>
-                                        </div>
-                                        <select class="form-control" id="idCompararFaturamentoPorVendedor">
-                                            <option>Não comparar</option>
-                                            <?php foreach($vendedores as $vendedor){ ?>
-                                                <option value="<?=$vendedor["id"]?>"><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <canvas id="faturamentoPorVendedor" width="80%" height="30"></canvas>
+                            </form>
+                            <canvas id="faturamentoPorProduto" width="80%" height="30"></canvas>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Vendas por vendedor</h1>
+                            <form id="formVendasPorVendedor">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Ano </span>
+                                            </div>
+                                            <select class="form-control" id="anoVendasPorVendedor">
+                                                    <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
+                                                        <option value="<?=$ano?>"><?=$ano?></option>
+                                                    <?php } ?>
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Vendedor </span>
+                                            </div>
+                                            <select class="form-control" id="idVendasPorVendedor">
+                                                <?php foreach($vendedores as $vendedor){ ?>
+                                                    <option value="<?=$vendedor["id"]?>"><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Comparar com: </span>
+                                            </div>
+                                            <select class="form-control" id="idCompararVendasPorVendedor">
+                                                <option>Não comparar</option>
+                                                <?php foreach($vendedores as $vendedor){ ?>
+                                                    <option value="<?=$vendedor["id"]?>"><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <canvas id="vendasPorVendedor" width="80%" height="30"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h1>Faturamento por vendedor</h1>
+                            <form id="formFaturamentoPorVendedor">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Ano </span>
+                                            </div>
+                                            <select class="form-control" id="anoFaturamentoPorVendedor">
+                                                    <?php for($ano=$ultimoAno; $ano >= $primeiroAno; $ano--){ ?>
+                                                        <option value="<?=$ano?>"><?=$ano?></option>
+                                                    <?php } ?>
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Vendedor </span>
+                                            </div>
+                                            <select class="form-control" id="idFaturamentoPorVendedor">
+                                                <?php foreach($vendedores as $vendedor){ ?>
+                                                    <option value="<?=$vendedor["id"]?>"><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Comparar com: </span>
+                                            </div>
+                                            <select class="form-control" id="idCompararFaturamentoPorVendedor">
+                                                <option>Não comparar</option>
+                                                <?php foreach($vendedores as $vendedor){ ?>
+                                                    <option value="<?=$vendedor["id"]?>"><?=$vendedor["nome"]." ".$vendedor["sobrenome"]?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <canvas id="faturamentoPorVendedor" width="80%" height="30"></canvas>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
         <?php } ?>
-        
     </body>
 </html>
