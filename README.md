@@ -41,17 +41,17 @@ php tests/automated_tests.php
 # Estrutura de diretórios
 
 .                               # Diretório contendo as _views_ do sistema.        
-├── src                    
-│   ├── ajax
-│   ├── models          
-├── js
-├── css
-├── tests
-├── config
-│   ├── database
-│   ├── scripts 
-│   ├── sql    
-└── README.md
+├── src                         # Diretório contendo as _views_ do sistema.                    
+│   ├── ajax                    # Diretório contendo as _views_ do sistema.
+│   ├── models                  # Diretório contendo as _views_ do sistema.          
+├── js                          # Diretório contendo as _views_ do sistema.
+├── css                         # Diretório contendo as _views_ do sistema.
+├── tests                       # Diretório contendo as _views_ do sistema.
+├── config                      # Diretório contendo as _views_ do sistema.
+│   ├── database                # Diretório contendo as _views_ do sistema.
+│   ├── scripts                 # Diretório contendo as _views_ do sistema. 
+│   ├── sql                     # Diretório contendo as _views_ do sistema.     
+└── README.md                   # Diretório contendo as _views_ do sistema.
 
 
 ## Construído com
