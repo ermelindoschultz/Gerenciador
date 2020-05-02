@@ -1,8 +1,4 @@
 <?php
-    ini_set('display_errors', 1); 
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    
     require_once 'src/models/Produto.php';
 
     if(isset($_POST["editar"]) && isset($_POST["nome"]) && isset($_POST["valor"]) && isset($_POST["id"])){

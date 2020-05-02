@@ -15,7 +15,7 @@ $venda = new Venda();
 
 $numProdutos = 30;
 $numVendedores = 10;
-$numVendas = 10000;
+$numVendas = 500;
 $anoInicio = 2015;
 $anoFim = 2020;
 

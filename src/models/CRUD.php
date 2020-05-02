@@ -96,7 +96,12 @@ class CRUD{
         
         $result = $db->read_query($this->tableName, $columns, $orderby, $order_sort, $offset,$limit);
 
+        if(!$result){
+            return false;
+        }
+        
         $data = [];
+
         while($row = $result->fetch_assoc()){
             if( empty($columns) ){
                 $row_data = $row;
