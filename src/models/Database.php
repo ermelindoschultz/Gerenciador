@@ -1,19 +1,9 @@
 <?php
 ## Define as váriaveis para configuração e uso de banco de dados MySQL.
 
+require_once(__DIR__."/../../config/database/database_constants.php");
+
 class Database{
-    const MYSQL_HOST = 'localhost';
-
-    const MYSQL_USER = 'dev';
-
-    const MYSQL_PASSWD = 'devpass';
-
-    const MYSQL_DBNAME = 'gerenciador';
-
-    const MYSQL_PORT = null;
-
-    const MYSQL_SOCKET = null;
-
     const OP_INSERT = 1;
 
     const OP_SELECT = 2;
@@ -25,7 +15,7 @@ class Database{
     private $connection;
 
     function __construct(){
-        $this->connection = new mysqli(Database::MYSQL_HOST,Database::MYSQL_USER,Database::MYSQL_PASSWD,Database::MYSQL_DBNAME);
+        $this->connection = new mysqli(MYSQL_HOST,MYSQL_USER,MYSQL_PASSWD,MYSQL_DBNAME,MYSQL_PORT,MYSQL_SOCKET);
     }
 
     function cud_query($table, $operation, $values){
