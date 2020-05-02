@@ -31,7 +31,9 @@ function updateVendasPorProduto(id_produto, ano, id_produto_comparar = false){
         type: 'get',
         data: { id_produto, ano, id_produto_comparar},
         success: function(response){
+            
             configChart = $.parseJSON(response);
+            console.log(configChart.datasets);
             var ctx = document.getElementById("vendasPorProduto");
 
             chartVendasPorProduto.destroy();

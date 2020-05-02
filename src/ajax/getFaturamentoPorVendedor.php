@@ -15,7 +15,8 @@ if(isset($_GET["ano"]) && isset($_GET["id_vendedor"])){
 
     $datasetA = $analyst->faturamentoPorVendedor($_GET["id_vendedor"], $_GET["ano"]);
     
-    $vendedor->getFromDB($_GET["id_vendedor"]);
+    $vendedor->setId($_GET["id_vendedor"]);
+    $vendedor->getFromDB();
 
     $datasetA["label"] = $vendedor->getNome(). " ".$vendedor->getSobrenome();
 
@@ -26,7 +27,8 @@ if(isset($_GET["ano"]) && isset($_GET["id_vendedor"])){
 
         $datasetB = $analyst->faturamentoPorVendedor($_GET["id_vendedor_comparar"], $_GET["ano"]);
         
-        $vendedor->getFromDB($_GET["id_vendedor_comparar"]);
+        $vendedor->setId($_GET["id_vendedor_comparar"]);
+        $vendedor->getFromDB();
 
         $datasetB["label"] = $vendedor->getNome(). " ".$vendedor->getSobrenome();
 

@@ -13,7 +13,9 @@ if(isset($_GET["ano"]) && isset($_GET["id_produto"])){
 
     $datasetA = $analyst->vendasPorProduto($_GET["id_produto"], $_GET["ano"]);
     
-    $produto->getFromDB($_GET["id_produto"]);
+    $produto->setId($_GET["id_produto"]);
+
+    $produto->getFromDB();
 
     $datasetA["label"] = $produto->getNome();
 
@@ -25,7 +27,8 @@ if(isset($_GET["ano"]) && isset($_GET["id_produto"])){
 
         $datasetB = $analyst->vendasPorProduto($_GET["id_produto_comparar"], $_GET["ano"]);
         
-        $produto->getFromDB($_GET["id_produto_comparar"]);
+        $produto->setId($_GET["id_produto_comparar"]);
+        $produto->getFromDB();
 
         $datasetB["label"] = $produto->getNome();
 
