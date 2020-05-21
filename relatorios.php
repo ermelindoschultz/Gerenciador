@@ -1,5 +1,7 @@
 <?php
-  
+    /**
+     * Eu documentei este relatório!
+     */
     require_once 'src/models/DataAnalysis.php';
     require_once 'src/models/Vendedor.php';
     require_once 'src/models/Produto.php';
